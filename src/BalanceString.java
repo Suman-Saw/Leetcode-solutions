@@ -1,10 +1,12 @@
-import java.util.Stack;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class BalanceString {
     public static void main(String[] args) {
         String str = "(ab(()";
         System.out.println(getBalanceString(str));
         System.out.println(balanceStringUsingStack(str));
+        System.out.println(balanceStringUsingArrayQueue(str));
     }
 
     private static String getBalanceString(String str) {
@@ -53,5 +55,31 @@ public class BalanceString {
         }
 
         return result.toString().replace("\0", "");
+    }
+    public static String balanceStringUsingArrayQueue(String str) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        Set<Integer> indexToRemove = new HashSet<>();
+        for (int i = 0; i < str.length() ; i++) {
+            char c = str.charAt(i);
+            if (c == '(') {
+                stack.push(i);
+            } else if (c == ')') {
+                if (stack.isEmpty()) {
+                    indexToRemove.add(i);
+                }else {
+                    stack.pop();
+                }
+            }
+        }
+        while (!stack.isEmpty()) {
+            indexToRemove.add(stack.pop());
+        }
+        StringBuilder finalResult = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (!indexToRemove.contains(i)) {
+                finalResult.append(str.charAt(i));
+            }
+        }
+        return finalResult.toString();
     }
 }
