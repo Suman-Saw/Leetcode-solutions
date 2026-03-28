@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class FindSecondHighestNumber {
@@ -5,6 +7,7 @@ public class FindSecondHighestNumber {
         int[] arr = {2,6,1,11,14,7,9,13};
         System.out.println(findSecondHighestNumber(arr));
         System.out.println(findSecondHighestNumberUsingPriorityQueue(arr));
+        System.out.println(findSecondHighestNumberUsingStream(arr));
     }
 
     private static int findSecondHighestNumber(int[] arr) {
@@ -34,5 +37,14 @@ public class FindSecondHighestNumber {
             }
         }
         return priorityQueue.peek();
+    }
+
+    private static int findSecondHighestNumberUsingStream(int[] arr) {
+        return Arrays.stream(arr)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .skip(1)
+                .findFirst()
+                .orElseThrow();
     }
 }
