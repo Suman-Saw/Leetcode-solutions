@@ -1,9 +1,13 @@
 import com.sun.source.tree.Tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class SortedArrayToBST {
     public static void main(String[] args) {
         int[] nums = {-10, -3, 0, 5, 9};
         TreeNode root = sortedArrayToBST(nums);
+        printTree(root);
     }
 
     private static TreeNode sortedArrayToBST(int[] nums) {
@@ -21,6 +25,22 @@ public class SortedArrayToBST {
         root.right = constructBst(nums, mid + 1, right);
 
         return root;
+    }
+    private static void printTree(TreeNode root) {
+        if (root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int treeSize = queue.size();
+            for (int i = 0; i < treeSize; i++) {
+                TreeNode node = queue.poll();
+                System.out.println(node.num + " ");
+
+                if (node.left != null) queue.add(node.left);
+                if ((node.right!=null)) queue.add(node.right);
+            }
+        }
     }
 }
 
