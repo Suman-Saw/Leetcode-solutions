@@ -19,3 +19,9 @@ public class LongestCommonPrefix {
     }
 }
 
+
+//int i = 1 => flower => flowe => flow
+//int i = 2 => flow => flo => fl
+//return fl
+
+
